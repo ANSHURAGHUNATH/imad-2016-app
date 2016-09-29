@@ -5,8 +5,8 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-
-var Articleone= {
+var articles = {
+'article-one' : {
     title: 'Article one @ Anshuman sarangi' ,
     heading:'Article 1' ,
     date :'sep 25,2016' ,
@@ -21,6 +21,37 @@ var Articleone= {
                        as INDIA moves up in the global innovation index and 
                        competition index.
             </p>`
+},
+'article-two' : {
+    title: 'Article two @ Anshuman sarangi' ,
+    heading:'Article 2' ,
+    date :'sep 25,2016' ,
+    content:`
+            <p>
+                       Start up INDIA Stand up INDIA is an ambitious scheme to 
+                       put INDIA in the elite slot of most innovative nations.
+                       Let's grab it and start thinking to how become an enterpreneur!
+            </p>
+            <p>
+                       These schemes are showing signs of a better tomorrow 
+                       as INDIA moves up in the global innovation index and 
+                       competition index.
+            </p>`},
+'article-three' : {
+    title: 'Article three @ Anshuman sarangi' ,
+    heading:'Article 3' ,
+    date :'sep 25,2016' ,
+    content:`
+            <p>
+                       Start up INDIA Stand up INDIA is an ambitious scheme to 
+                       put INDIA in the elite slot of most innovative nations.
+                       Let's grab it and start thinking to how become an enterpreneur!
+            </p>
+            <p>
+                       These schemes are showing signs of a better tomorrow 
+                       as INDIA moves up in the global innovation index and 
+                       competition index.
+            </p>`}
 };
 function createTemplate (data) {
     var title = data.title;
@@ -62,17 +93,11 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function(req,res) {
-   res.send(createTemplate(Articleone));
+app.get('/:articleName', function(req,res) {
+    var articleName = req.params.articleName;
+   res.send(createTemplate(articles[articleName]));
 });
 
-app.get('/article-two', function(req,res) {
- res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
- });
- 
-app.get('/article-three', function(req,res) {
- res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
- });
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
